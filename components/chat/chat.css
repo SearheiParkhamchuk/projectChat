@@ -1,0 +1,35 @@
+.chat {
+    padding: 5px;
+    overflow: hidden;
+}
+.chat__message {
+    margin: 5px 0;
+    position: relative;
+}
+.chat__date {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45px;
+    color: #a4a4a4;
+    font-size: 80%;
+    line-height: 17px;
+    height: 17px;
+}
+.chat__text {
+    margin-left: 45px;
+}
+.chat__text_author {
+    color: #2a2a2a;
+    font-weight: bold;
+    margin: 0 5px;
+}
+.chat__message_own .chat__text_author {
+     color: #26496e;
+}
+.chat__message_own .chat__text_author:after {
+    content: ' (вы)';
+    color: #a4a4a4;
+    font-size: 70%;
+}

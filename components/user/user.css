@@ -1,0 +1,17 @@
+.login-form {
+    padding: 0;
+    font-size: 13px;
+}
+.user {
+    margin-right: 10px;
+}
+.user__username {
+    font-weight: bold;
+}
+.user__username:after {
+    content: '.';
+}
+.login-form input {
+    height: 21px;
+    width: 100px;
+}

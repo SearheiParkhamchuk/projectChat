@@ -1,0 +1,18 @@
+.message-form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+}
+.message-form input {
+    height: 30px;
+}
+.message-form__message {
+    flex: 1;
+}
+.message-form__button {
+    width: 100px;
+    margin-left: 5px;
+}
