@@ -1,26 +1,24 @@
 {
-  "name": "components_1303_2130",
+  "name": "projectChat",
   "version": "1.0.0",
-  "description": "Учебный проект. Чат.",
-  "main": "index.js",
+  "description": "Чат. Учебный проект. Курс JavaScript/DOM/интерфейсы (13.03, 21:30).",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "static . --port=8900",
-    "lint": "jshint components/**/*.js"
+    "serve": "static . --port=8900"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iketari/components_1303_2130.git"
+    "url": "git+https://github.com/mevl/projectChat.git"
   },
-  "author": "Artsiom Mezin",
+  "author": "Vladimir Melnikov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iketari/components_1303_2130/issues"
+    "url": "https://github.com/mevl/projectChat/issues"
   },
-  "homepage": "https://github.com/iketari/components_1303_2130#readme",
+  "homepage": "https://github.com/mevl/projectChat#readme",
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0",
-    "jshint": "^2.9.4",
-    "node-static": "^0.7.9"
+    "pug": "^2.0.0-rc.1",
+    "pug-cli": "^1.0.0-alpha6"
   }
 }

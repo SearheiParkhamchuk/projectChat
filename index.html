@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>Чатик группы 13.03 21:30</title>
     <!-- Dependencies -->
     <!-- CSS -->
@@ -12,35 +12,34 @@
     <link rel="stylesheet" href="./components/app.css">
 
     <!-- JS -->
+    <script src="./components/chat/chat.tmpl.js"></script>
     <script src="./components/chat/chat.js"></script>
     <script src="./components/messageForm/messageForm.js"></script>
     <script src="./components/user/user.js"></script>
     <script src="./components/notice/notice.js"></script>
     <script src="./components/app.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
+</head>
+<body>
+<div class="container">
+    <div class="header">
         <div>
-        <h1>Чатик группы 13.03 21:30</h1>
+            <h1>Чатик группы 13.03 21:30</h1>
 
         </div>
         <div class="user-info js-user"></div>
-      </div>
-      <div class="messages js-chat"></div>
-      <div class="footer js-messageForm"></div>
     </div>
+    <div class="messages js-chat"></div>
+    <div class="footer js-messageForm"></div>
+</div>
 
 
-
-
-    <script>
-      const app = new App({
-        userEl: document.querySelector('.js-user'),
-        messageFormEl: document.querySelector('.js-messageForm'),
-        chatEl: document.querySelector('.js-chat'),
-      });
-      app.render();
-    </script>
-  </body>
+<script>
+  const app = new App({
+    userEl: document.querySelector('.js-user'),
+    messageFormEl: document.querySelector('.js-messageForm'),
+    chatEl: document.querySelector('.js-chat'),
+  });
+  app.render();
+</script>
+</body>
 </html>

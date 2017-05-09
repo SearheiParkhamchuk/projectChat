@@ -1,4 +1,4 @@
-(function () {
+(() => {
   'use strict';
 
   class Notice {
@@ -16,25 +16,27 @@
      * @param {HtmlElement} notice
      */
     setPosition(notice) {
-      const elBox = this.el.getBoundingClientRect();
-      const noticeBox = notice.getBoundingClientRect();
-      const left = elBox.left +
-        (((elBox.right - elBox.left) / 2) - ((noticeBox.right - noticeBox.left) / 2));
+      const el = notice;
+      const anchorBox = this.el.getBoundingClientRect();
+      const elBox = el.getBoundingClientRect();
+      const left = anchorBox.left +
+        (((anchorBox.right - anchorBox.left) / 2) - ((elBox.right - elBox.left) / 2));
       let top;
 
       switch (this.position) {
         case 'top':
-          notice.classList.add('notice_top');
-          top = (elBox.top + this.el.clientTop) - notice.offsetHeight - 2;
+          el.classList.add('notice_top');
+          top = (anchorBox.top + this.el.clientTop) - el.offsetHeight - 2;
           break;
         case 'bottom':
         default:
-          notice.classList.add('notice_bottom');
-          top = (elBox.bottom - (this.el.offsetHeight - this.el.clientHeight - this.el.clientTop)) + 2;
+          el.classList.add('notice_bottom');
+          top = (anchorBox.bottom -
+            (this.el.offsetHeight - this.el.clientHeight - this.el.clientTop)) + 2;
           break;
       }
-      notice.style.left = `${left + pageXOffset}px`;
-      notice.style.top = `${top + pageYOffset}px`;
+      el.style.left = `${left + pageXOffset}px`;
+      el.style.top = `${top + pageYOffset}px`;
     }
 
     /**
@@ -60,11 +62,15 @@
 
       setTimeout(() => {
         notice.style.opacity = 0;
-        setTimeout(() => { document.body.removeChild(notice); }, 1000);
+        setTimeout(() => {
+          if (document.body.contains(notice)) {
+            document.body.removeChild(notice);
+          }
+        }, 1000);
       }, 5000);
     }
   }
 
-  //export
+  // export
   window.Notice = Notice;
 })();

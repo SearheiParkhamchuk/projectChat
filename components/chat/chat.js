@@ -1,5 +1,7 @@
-(function () {
+(() => {
   'use strict';
+
+  const chatTemplate = window.chatTemplate;
 
   /**
    * @typedef {Object} ChatMessage
@@ -11,7 +13,7 @@
 
   class Chat {
 
-    constructor({ el, messages = [] }) {
+    constructor({el, messages = []}) {
       this.el = el;
       this.messages = messages;
     }
@@ -29,9 +31,21 @@
      * Render the chat block.
      */
     render() {
+      this.el.innerHTML = chatTemplate(this.messages.map((message) => {
+        return {
+          isOwn: message.isOwn,
+          username: message.username,
+          date: message.date.toLocaleString('ru', { hour: '2-digit', minute: '2-digit' }),
+          message: message.message,
+        };
+      }));
+      this.el.scrollTop = this.el.scrollHeight;
+    }
+
+    render_old() {
       const messagesHTML = this.messages.map(message => `
         <div class="chat__message${message.isOwn ? ' chat__message_own' : ''}">
-            <div class="chat__date">${message.date.toLocaleString('ru', { hour: '2-digit', minute: '2-digit' })}</div>
+            <div class="chat__date">${message.date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})}</div>
             <div class="chat__text">
                 <span class="chat__text_author">${message.username}</span>
                 ${message.message}
@@ -48,6 +62,6 @@
     }
   }
 
-  //export
+  // export
   window.Chat = Chat;
 })();

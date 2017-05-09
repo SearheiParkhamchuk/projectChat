@@ -1,11 +1,12 @@
-(function () {
+(() => {
   'use strict';
 
   class User {
 
-    constructor({ el }) {
+    constructor({ el, Notice }) {
       this.el = el;
       this.initEvents();
+      this.Notice = Notice;
     }
 
     /**
@@ -31,12 +32,12 @@
     getInputData() {
       const names = this.el.querySelectorAll('[name]');
       const data = {};
-      Notice.clearNotices();
+      this.Notice.clearNotices();
       names.forEach((el) => {
         if (el.value.length) {
           data[el.name] = el.value;
         } else {
-          new Notice({
+          new this.Notice({
             el,
             message: `Укажите ${el.placeholder}`,
             className: 'notice-error',
@@ -62,7 +63,7 @@
      * Logout user.
      */
     logout() {
-      delete(this.user);
+      delete (this.user);
       this.render();
     }
 
@@ -87,8 +88,8 @@
         };
         this.render();
       } else {
-        Notice.clearNotices();
-        new Notice({
+        this.Notice.clearNotices();
+        new this.Notice({
           el: this.el.querySelector('[name=login]'),
           message: 'Пользователь с указанным именем и паролем не найдён.',
           className: 'notice-error',

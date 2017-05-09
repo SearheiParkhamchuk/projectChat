@@ -1,11 +1,17 @@
-(function () {
+(() => {
   'use strict';
+
+  // import
+  const Notice = window.Notice;
+  const User = window.User;
+  const Chat = window.Chat;
+  const MessageForm = window.MessageForm;
 
   class App {
 
     constructor({ userEl, messageFormEl, chatEl }) {
-      this.user = new User({ el: userEl });
-      this.messageForm = new MessageForm({ el: messageFormEl });
+      this.user = new User({ el: userEl, Notice });
+      this.messageForm = new MessageForm({ el: messageFormEl, Notice });
       this.chat = new Chat({ el: chatEl, messages: this.getInitialMessages() });
       this.initEvents();
     }
@@ -14,7 +20,7 @@
      * Init the application events.
      */
     initEvents() {
-      this.messageForm.el.addEventListener('onSubmit', this.onMessageSubmit.bind(this));
+      this.messageForm.on('messageSubmit', this.onMessageSubmit.bind(this));
     }
 
     /**
@@ -74,6 +80,6 @@
     }
   }
 
-  //export
+  // export
   window.App = App;
 })();

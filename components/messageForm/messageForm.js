@@ -1,4 +1,4 @@
-(function () {
+(() => {
   'use strict';
 
   /**
@@ -10,8 +10,9 @@
 
   class MessageForm {
 
-    constructor({ el }) {
+    constructor({ el, Notice }) {
       this.el = el;
+      this.Notice = Notice;
       this.initEvents();
     }
 
@@ -20,6 +21,13 @@
      */
     initEvents() {
       this.el.addEventListener('submit', this.onSubmit.bind(this));
+    }
+
+    /**
+     * Set event handler.
+     */
+    on(event, handler) {
+      this.el.addEventListener(event, handler);
     }
 
     /**
@@ -52,8 +60,8 @@
       event.preventDefault();
       const message = this.getMessage();
       if (!message) {
-        Notice.clearNotices();
-        new Notice({
+        this.Notice.clearNotices();
+        new this.Notice({
           el: this.getMessageElement(),
           message: 'Чтобы что-то отправить, нужно что-нибудь написать!',
           position: 'top',
@@ -61,7 +69,7 @@
         });
         return;
       }
-      const onSubmitEvent = new CustomEvent('onSubmit', { detail: { message } });
+      const onSubmitEvent = new CustomEvent('messageSubmit', { detail: { message } });
       this.el.dispatchEvent(onSubmitEvent);
     }
 
@@ -78,7 +86,7 @@
     }
   }
 
-  //export
+  // export
   window.MessageForm = MessageForm;
 })();
 

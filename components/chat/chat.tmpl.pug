@@ -1,0 +1,9 @@
+div.chat
+    each message in messages
+        div.chat__message(class=message.isOwn ? 'chat__message_own' : '')
+            div.chat__date
+                message.date
+            div.chat__text
+                span.chat__text_author
+                    message.username
+                message.message
