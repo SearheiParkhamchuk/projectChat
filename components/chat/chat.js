@@ -42,24 +42,24 @@
       this.el.scrollTop = this.el.scrollHeight;
     }
 
-    render_old() {
-      const messagesHTML = this.messages.map(message => `
-        <div class="chat__message${message.isOwn ? ' chat__message_own' : ''}">
-            <div class="chat__date">${message.date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})}</div>
-            <div class="chat__text">
-                <span class="chat__text_author">${message.username}</span>
-                ${message.message}
-            </div>
-        </div>
-      `).join('\n');
-
-      this.el.innerHTML = `
-        <div class="chat">
-          ${messagesHTML}
-        </div>
-      `;
-      this.el.scrollTop = this.el.scrollHeight;
-    }
+    // render_old() {
+    //   const messagesHTML = this.messages.map(message => `
+    //     <div class="chat__message${message.isOwn ? ' chat__message_own' : ''}">
+    //         <div class="chat__date">${message.date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})}</div>
+    //         <div class="chat__text">
+    //             <span class="chat__text_author">${message.username}</span>
+    //             ${message.message}
+    //         </div>
+    //     </div>
+    //   `).join('\n');
+    //
+    //   this.el.innerHTML = `
+    //     <div class="chat">
+    //       ${messagesHTML}
+    //     </div>
+    //   `;
+    //   this.el.scrollTop = this.el.scrollHeight;
+    // }
   }
 
   // export
