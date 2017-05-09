@@ -31,18 +31,11 @@
      * Render the chat block.
      */
     render() {
-      this.el.innerHTML = chatTemplate(this.messages.map((message) => {
-        return {
-          isOwn: message.isOwn,
-          username: message.username,
-          date: message.date.toLocaleString('ru', { hour: '2-digit', minute: '2-digit' }),
-          message: message.message,
-        };
-      }));
+      this.el.innerHTML = chatTemplate(this);
       this.el.scrollTop = this.el.scrollHeight;
     }
 
-    // render_old() {
+    // render() {
     //   const messagesHTML = this.messages.map(message => `
     //     <div class="chat__message${message.isOwn ? ' chat__message_own' : ''}">
     //         <div class="chat__date">${message.date.toLocaleString('ru', {hour: '2-digit', minute: '2-digit'})}</div>
