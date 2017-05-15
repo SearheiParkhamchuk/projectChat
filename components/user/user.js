@@ -207,10 +207,22 @@
      * Render the user data block.
      */
     render() {
-      this.el.innerHTML = userTemplate({
-        username: this.username,
-        avatarUrl: this.avatarUrl,
-      });
+      this.el.innerHTML = `
+        <div class="user">
+            <h1 class="user__username toggle toggled" data-toggle="username">${this.username}</h1>
+            <form class="user-form user-form__username hidden" data-action="setUsername">
+                <input name="username" placeholder="Укажите имя" class="user__input user__input_username" />
+                <input type="submit" class="user__input user__input_button input_button" value=">" />
+            </form>
+            <form class="user-form user-form__avatar hidden" data-action="setAvatar">
+                <input name="avatarUrl" placeholder="URL аватары" class="user__input user__input_avatar" />
+                <input type="submit" class="user__input user__input_button input_button" value=">" />
+            </form>
+            <figure class="user__avatar">
+                <img class="toggle" data-toggle="avatar" src="${this.avatarUrl}" alt="${this.username}"/>
+            </figure>
+        </div>
+      `;
     }
   }
 
