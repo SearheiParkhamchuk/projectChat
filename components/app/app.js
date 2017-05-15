@@ -31,9 +31,9 @@
      */
     intervalUpdate(delay = 3000) {
       this.updateMessages();
-      // setTimeout(() => {
-      //   this.intervalUpdate.call(this, delay);
-      // }, delay);
+      setTimeout(() => {
+        this.intervalUpdate.call(this, delay);
+      }, delay);
     }
 
     /**
