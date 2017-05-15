@@ -207,7 +207,10 @@
      * Render the user data block.
      */
     render() {
-      this.el.innerHTML = userTemplate(this.data);
+      this.el.innerHTML = userTemplate({
+        username: this.username,
+        avatarUrl: this.avatarUrl,
+      });
     }
   }
 
