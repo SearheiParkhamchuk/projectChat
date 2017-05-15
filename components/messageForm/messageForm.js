@@ -1,18 +1,13 @@
 (() => {
   'use strict';
 
-  /**
-   * @typedef {Object} ChatMessage
-   * @property {string} username
-   * @property {Date} date
-   * @property {string} message
-   */
+  // import
+  const formTemplate = window.formTemplate;
 
   class MessageForm {
 
-    constructor({ el, Notice }) {
+    constructor({ el }) {
       this.el = el;
-      this.Notice = Notice;
       this.initEvents();
     }
 
@@ -20,7 +15,8 @@
      * Init the message events.
      */
     initEvents() {
-      this.el.addEventListener('submit', this.onSubmit.bind(this));
+      this.el.addEventListener('submit', this.messageSubmit.bind(this));
+      this.el.addEventListener('keydown', this.keyDown.bind(this));
     }
 
     /**
@@ -31,42 +27,26 @@
     }
 
     /**
-     * Get the message input Html element.
-     * @returns {HtmlElement}
-     */
-    getMessageElement() {
-      if (!this.inputEl) {
-        this.inputEl = this.el.querySelector('[name="message"]');
-      }
-      return this.inputEl;
-    }
-
-    /**
      * Get submitted message and then clear the element value.
      * @returns {string}
      */
     getMessage() {
-      const inputEl = this.getMessageElement();
-      const message = inputEl.value;
-      inputEl.value = '';
+      if (!this.inputEl) {
+        this.inputEl = this.el.querySelector('[name="message"]');
+      }
+      const message = this.inputEl.value;
+      this.inputEl.value = '';
       return message;
     }
 
     /**
-     * Message submit callback
-     * @param event
+     * KeyDown event handler
+     * @param {Event} event
      */
-    onSubmit(event) {
+    messageSubmit(event) {
       event.preventDefault();
       const message = this.getMessage();
       if (!message) {
-        this.Notice.clearNotices();
-        new this.Notice({
-          el: this.getMessageElement(),
-          message: 'Чтобы что-то отправить, нужно что-нибудь написать!',
-          position: 'top',
-          className: 'notice-error',
-        });
         return;
       }
       const onSubmitEvent = new CustomEvent('messageSubmit', { detail: { message } });
@@ -74,15 +54,22 @@
     }
 
     /**
+     * Message submit handler
+     * @param {Event} event
+     */
+    keyDown(event) {
+      if (event.which !== 13 || event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
+        return;
+      }
+      event.preventDefault();
+      this.messageSubmit(event);
+    }
+
+    /**
      * Render the message form block.
      */
     render() {
-      this.el.innerHTML = `
-        <form class="message-form">
-          <input name="message" placeholder="Сообщение..." autocomplete="off" class="input message-form__message" />
-          <input type="submit" class="button message-form__button" />
-        </form>
-      `;
+      this.el.innerHTML = formTemplate();
     }
   }
 

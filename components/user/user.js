@@ -1,117 +1,205 @@
 (() => {
   'use strict';
 
+  // import
+  const userTemplate = window.userTemplate;
+
+  const ANONIMOUS_USERNAME = 'Аноним';
+  const DEFAULT_AVATAR = './components/user/noAvatar.jpg';
+
+  /**
+   * @typedef {Object} User
+   * @property {string} userId
+   * @property {string} username
+   * @property {string} avatarUrl
+   */
+
   class User {
 
-    constructor({ el, Notice }) {
+    constructor({ el }) {
       this.el = el;
       this.initEvents();
-      this.Notice = Notice;
+      this.data = {
+        userId: User.getCookie('userId') || `anonimous-${(Math.random() * 1000000000).toFixed()}`,
+        username: User.getCookie('username') || undefined,
+        avatarUrl: User.getCookie('avatarUrl') || undefined,
+      };
+      this.setUserCookies();
     }
 
     /**
      * Init the user events.
      */
     initEvents() {
-      this.el.addEventListener('click', this.onClick.bind(this));
-      this.el.addEventListener('submit', this.login.bind(this));
+      this.el.addEventListener('click', this.click.bind(this));
+      this.el.addEventListener('submit', this.submit.bind(this));
+    }
+
+    /**
+     * Get the user ID.
+     * @returns {string}
+     */
+    get userId() {
+      return this.data.userId;
+    }
+
+    /**
+     * Set the user ID by a username.
+     * @param {string} username
+     */
+    set userId(username) {
+      if (username) {
+        this.data.userId = username.toLowerCase();
+      }
     }
 
     /**
      * Get the username.
      * @returns {string}
      */
-    getUsername() {
-      return this.user ? this.user.username : 'Anonimous';
+    get username() {
+      return this.data.username || ANONIMOUS_USERNAME;
     }
 
     /**
-     * Collect submitted data as object with pairs {name: value, ...}
-     * @returns {Object}
+     * Get default username.
+     * @returns {string}
      */
-    getInputData() {
-      const names = this.el.querySelectorAll('[name]');
-      const data = {};
-      this.Notice.clearNotices();
-      names.forEach((el) => {
-        if (el.value.length) {
-          data[el.name] = el.value;
-        } else {
-          new this.Notice({
-            el,
-            message: `Укажите ${el.placeholder}`,
-            className: 'notice-error',
-          });
-        }
-      });
-      return data;
+    get defaultUsername() {
+      return ANONIMOUS_USERNAME;
     }
 
     /**
-     * OnClick event callback.
-     * @param event
+     * Get the user avatar URL.
+     * @returns {string}
      */
-    onClick(event) {
-      event.preventDefault();
-      const action = event.target.dataset.action;
-      if (action && this[action]) {
-        this[action]();
+    get avatarUrl() {
+      return this.data.avatarUrl || DEFAULT_AVATAR;
+    }
+
+    /**
+     * Get default avatar URL.
+     * @returns {string}
+     */
+    get defaultAvatarUrl() {
+      return DEFAULT_AVATAR;
+    }
+
+    /**
+     * Set current user settings to cookies.
+     */
+    setUserCookies() {
+      User.setCookie('userId', this.data.userId);
+      if (this.data.username) {
+        User.setCookie('username', this.data.username);
+      } else {
+        User.setCookie('username', '', { expires: -1 });
+      }
+      if (this.data.avatarUrl) {
+        User.setCookie('avatarUrl', this.data.avatarUrl);
+      } else {
+        User.setCookie('avatarUrl', '', { expires: -1 });
       }
     }
 
     /**
-     * Logout user.
+     * Get cookie by a name.
+     * @param {string} name
+     * @returns {*}
      */
-    logout() {
-      delete (this.user);
+    static getCookie(name) {
+      const matches = document.cookie.match(new RegExp(
+        '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'
+      ));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    /**
+     * Set cookie.
+     * @param {string} name
+     * @param {string} value
+     * @param {Object} options
+     */
+    static setCookie(name, value, options = {}) {
+      const defaultOptions = {
+        expires: 86400,
+      };
+      options = Object.assign({}, defaultOptions, options);
+      let expires = options.expires;
+      if (typeof expires === 'number' && expires) {
+        const expDate = new Date();
+        expDate.setTime(expDate.getTime() + (expires * 1000));
+        expires = options.expires = expDate;
+      }
+      if (expires && expires.toUTCString) {
+        options.expires = expires.toUTCString();
+      }
+      let updatedCookie = `${name}=${encodeURIComponent(value)}`;
+      for (const propName in options) {
+        updatedCookie += `; ${propName}`;
+        if (options[propName] !== true) {
+          updatedCookie += `=${options[propName]}`;
+        }
+      }
+      document.cookie = updatedCookie;
+    }
+
+    /**
+     * Submit event handler.
+     * @param {Event} event
+     */
+    submit(event) {
+      event.preventDefault();
+      if (
+        event.target.classList.contains('user-form') &&
+        event.target.dataset.action &&
+        this[event.target.dataset.action]
+      ) {
+        this[event.target.dataset.action](event);
+      }
+    }
+
+    /**
+     * Click event handler.
+     * @param {Event} event
+     */
+    click(event) {
+      if (event.target.classList.contains('toggle') && event.target.dataset.toggle) {
+        event.preventDefault();
+        this.el.querySelector('[name=username]').value = this.username;
+        this.el.querySelector('[name=avatarUrl]').value = this.data.avatarUrl || '';
+        this.el.querySelector(`.user .user-form__${event.target.dataset.toggle}`).classList.toggle('hidden');
+        if (event.target.classList.contains('toggled')) {
+          event.target.hidden = true;
+        }
+      }
+    }
+
+    /**
+     * Set user avatar.
+     * @param {Event} event
+     */
+    setAvatar(event) {
+      const el = event.target.querySelector('[name=avatarUrl]');
+//      if (el && el.value && el.value.match(/.(jpg|jpeg|png|gif)$/i)) {
+      if (el && el.value) {
+        this.data.avatarUrl = el.value;
+      }
+      this.setUserCookies();
       this.render();
     }
 
     /**
-     * Check user auth data and login if correct.
+     * Set username.
+     * @param {Event} event
      */
-    login(event) {
-      if (event) {
-        event.preventDefault();
+    setUsername(event) {
+      const el = event.target.querySelector('[name=username]');
+      if (el && el.value) {
+        this.data.username = el.value;
+        this.userId = el.value;
       }
-      const data = this.getInputData();
-      if (!data.login || !data.password) {
-        return;
-      }
-
-      // TODO: do server auth
-
-      if (data.login === 'testuser' && data.password === '12345') {
-        this.user = {
-          id: 123,
-          username: data.login,
-        };
-        this.render();
-      } else {
-        this.Notice.clearNotices();
-        new this.Notice({
-          el: this.el.querySelector('[name=login]'),
-          message: 'Пользователь с указанным именем и паролем не найдён.',
-          className: 'notice-error',
-        });
-      }
-    }
-
-    /**
-     * Check user auth data, register and login if correct.
-     */
-    register() {
-      const data = this.getInputData();
-      if (!data.login || !data.password) {
-        return;
-      }
-
-      // TODO: do server auth
-
-      this.user = {
-        id: Math.random(),
-        username: data.login,
-      };
+      this.setUserCookies();
       this.render();
     }
 
@@ -119,21 +207,7 @@
      * Render the user data block.
      */
     render() {
-      this.el.innerHTML = this.user
-        ? `
-        <form class="login-form">
-          <span class="user">Здравствуйте, <span class="user__username">${this.user.username}</span></span>
-          <input type="submit" value="Выйти" data-action="logout" class="button login-form__button" />
-        </form>
-        `
-        : `
-        <form class="login-form">
-          <input name="login" placeholder="Имя" class="input login-form__input" />
-          <input name="password" placeholder="Пароль" type="password" class="input login-form__input" />
-          <input type="submit" value="Войти" data-action="login" class="button login-form__button" />
-          <input type="submit" value="Регистрация" data-action="register" class="button login-form__button" />
-        </form>
-        `;
+      this.el.innerHTML = userTemplate(this.data);
     }
   }
 

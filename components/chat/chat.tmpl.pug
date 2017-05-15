@@ -1,7 +1,0 @@
-div.chat
-    each message in messages
-        div.chat__message(class=message.isOwn ? 'chat__message_own' : '')
-            div.chat__date=message.date.toLocaleString('ru', { hour: '2-digit', minute: '2-digit' })
-            div.chat__text
-                span.chat__text_author=message.username
-                =message.message

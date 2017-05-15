@@ -5,7 +5,11 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "static . --port=8900"
+    "build:chat": "pug --client -n messageTemplate ./components/chat/message.tmpl.pug",
+    "build:messageForm": "pug --client -n formTemplate ./components/messageForm/form.tmpl.pug",
+    "build:user": "pug --client -n userTemplate ./components/user/user.tmpl.pug",
+    "build": "npm-run-all --parallel build:chat build:messageForm build:user",
+    "serve": "npm run build && static . --port=8900"
   },
   "repository": {
     "type": "git",
@@ -18,7 +22,9 @@
   },
   "homepage": "https://github.com/mevl/projectChat#readme",
   "devDependencies": {
+    "npm-run-all": "^4.0.2",
     "pug": "^2.0.0-rc.1",
-    "pug-cli": "^1.0.0-alpha6"
+    "pug-cli": "^1.0.0-alpha6",
+    "node-static": "^0.7.9"
   }
 }

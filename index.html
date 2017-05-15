@@ -3,41 +3,37 @@
 <head>
     <meta charset="utf-8"/>
     <title>Чатик группы 13.03 21:30</title>
-    <!-- Dependencies -->
-    <!-- CSS -->
+    <!-- CSS Dependencies -->
     <link rel="stylesheet" href="./components/chat/chat.css">
     <link rel="stylesheet" href="./components/messageForm/messageForm.css">
     <link rel="stylesheet" href="./components/user/user.css">
-    <link rel="stylesheet" href="./components/notice/notice.css">
-    <link rel="stylesheet" href="./components/app.css">
+    <link rel="stylesheet" href="./components/app/app.css">
 
-    <!-- JS -->
-    <script src="./components/chat/chat.tmpl.js"></script>
+    <!-- JS Dependencies -->
+    <script src="./components/httpRequest/httpRequest.js"></script>
+    <script src="./components/chat/message.tmpl.js"></script>
     <script src="./components/chat/chat.js"></script>
+    <script src="./components/messageForm/form.tmpl.js"></script>
     <script src="./components/messageForm/messageForm.js"></script>
+    <script src="./components/user/user.tmpl.js"></script>
     <script src="./components/user/user.js"></script>
-    <script src="./components/notice/notice.js"></script>
-    <script src="./components/app.js"></script>
+    <script src="./components/app/app.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <div>
-            <h1>Чатик группы 13.03 21:30</h1>
-
-        </div>
-        <div class="user-info js-user"></div>
+<div class="chat">
+    <div class="chat__header">
+        <div class="chat__title">Чатик группы 13.03 21:30</div>
+        <div class="chat__userinfo js-user"></div>
     </div>
-    <div class="messages js-chat"></div>
-    <div class="footer js-messageForm"></div>
+    <div class="chat__content js-chat"></div>
+    <div class="chat__footer js-messageForm"></div>
 </div>
-
-
+<div class="bg"></div>
 <script>
   const app = new App({
     userEl: document.querySelector('.js-user'),
-    messageFormEl: document.querySelector('.js-messageForm'),
     chatEl: document.querySelector('.js-chat'),
+    messageFormEl: document.querySelector('.js-messageForm'),
   });
   app.render();
 </script>
