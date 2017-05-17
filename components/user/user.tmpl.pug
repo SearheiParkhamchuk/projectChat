@@ -2,9 +2,9 @@ div.user
     h1.user__username.toggle.toggled(data-toggle='username')=username
     form.user-form.user-form__username.hidden(data-action='setUsername')
         input.user__input.user__input_username(name='username' placeholder='Укажите имя')
-        input.user__input.user__input_button.input_button(type='submit' value='>')
+        input.button.user__input_button.input_button(type='submit' value='>')
     form.user-form.user-form__avatar.hidden(data-action='setAvatar')
         input.user__input.user__input_avatar(name='avatarUrl' placeholder='URL аватары')
-        input.user__input.user__input_button.input_button(type='submit' value='>')
+        input.button.user__input_button.input_button(type='submit' value='>')
     figure.user__avatar
         img.toggle(data-toggle='avatar' src=avatarUrl alt=username)

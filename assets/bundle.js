@@ -908,13 +908,13 @@ class App {
   initEvents() {
     this.messageForm.on('messageSubmit', this.messageSubmit.bind(this));
     this.chat.on('messageDelete', this.deleteMessage.bind(this));
-    // document.addEventListener('visibilitychange', () => {
-    //   if (document.visibilityState === 'hidden') {
-    //     this.stopIntervalUpdate();
-    //   } else {
-    //     this.startIntervalUpdate();
-    //   }
-    // });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        this.stopIntervalUpdate();
+      } else {
+        this.startIntervalUpdate();
+      }
+    });
   }
 
   /**
@@ -1004,8 +1004,7 @@ class App {
   render() {
     this.user.render();
     this.messageForm.render();
-    this.updateMessages();
-//      this.startIntervalUpdate();
+    this.startIntervalUpdate();
   }
 }
 
@@ -1054,7 +1053,7 @@ module.exports = template;
 
 var pug = __webpack_require__(0);
 
-function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (avatarUrl, username) {pug_html = pug_html + "\u003Cdiv class=\"user\"\u003E\u003Ch1 class=\"user__username toggle toggled\" data-toggle=\"username\"\u003E" + (pug.escape(null == (pug_interp = username) ? "" : pug_interp)) + "\u003C\u002Fh1\u003E\u003Cform class=\"user-form user-form__username hidden\" data-action=\"setUsername\"\u003E\u003Cinput class=\"user__input user__input_username\" name=\"username\" placeholder=\"Укажите имя\"\u003E\u003Cinput class=\"user__input user__input_button input_button\" type=\"submit\" value=\"&gt;\"\u003E\u003C\u002Fform\u003E\u003Cform class=\"user-form user-form__avatar hidden\" data-action=\"setAvatar\"\u003E\u003Cinput class=\"user__input user__input_avatar\" name=\"avatarUrl\" placeholder=\"URL аватары\"\u003E\u003Cinput class=\"user__input user__input_button input_button\" type=\"submit\" value=\"&gt;\"\u003E\u003C\u002Fform\u003E\u003Cfigure class=\"user__avatar\"\u003E\u003Cimg" + (" class=\"toggle\""+" data-toggle=\"avatar\""+pug.attr("src", avatarUrl, true, true)+pug.attr("alt", username, true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fdiv\u003E";}.call(this,"avatarUrl" in locals_for_with?locals_for_with.avatarUrl:typeof avatarUrl!=="undefined"?avatarUrl:undefined,"username" in locals_for_with?locals_for_with.username:typeof username!=="undefined"?username:undefined));;return pug_html;};
+function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (avatarUrl, username) {pug_html = pug_html + "\u003Cdiv class=\"user\"\u003E\u003Ch1 class=\"user__username toggle toggled\" data-toggle=\"username\"\u003E" + (pug.escape(null == (pug_interp = username) ? "" : pug_interp)) + "\u003C\u002Fh1\u003E\u003Cform class=\"user-form user-form__username hidden\" data-action=\"setUsername\"\u003E\u003Cinput class=\"user__input user__input_username\" name=\"username\" placeholder=\"Укажите имя\"\u003E\u003Cinput class=\"button user__input_button input_button\" type=\"submit\" value=\"&gt;\"\u003E\u003C\u002Fform\u003E\u003Cform class=\"user-form user-form__avatar hidden\" data-action=\"setAvatar\"\u003E\u003Cinput class=\"user__input user__input_avatar\" name=\"avatarUrl\" placeholder=\"URL аватары\"\u003E\u003Cinput class=\"button user__input_button input_button\" type=\"submit\" value=\"&gt;\"\u003E\u003C\u002Fform\u003E\u003Cfigure class=\"user__avatar\"\u003E\u003Cimg" + (" class=\"toggle\""+" data-toggle=\"avatar\""+pug.attr("src", avatarUrl, true, true)+pug.attr("alt", username, true, true)) + "\u003E\u003C\u002Ffigure\u003E\u003C\u002Fdiv\u003E";}.call(this,"avatarUrl" in locals_for_with?locals_for_with.avatarUrl:typeof avatarUrl!=="undefined"?avatarUrl:undefined,"username" in locals_for_with?locals_for_with.username:typeof username!=="undefined"?username:undefined));;return pug_html;};
 module.exports = template;
 
 /***/ }),

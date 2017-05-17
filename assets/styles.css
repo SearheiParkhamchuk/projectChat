@@ -269,15 +269,18 @@ textarea {
     position: absolute;
     top: 10px;
 }
-.user__input {
+.user__input,
+.user__input_button {
     height: 21px;
-    width: 150px;
-    background: rgba(83, 164, 191, 0.2);
-    border: rgba(0, 0, 0, 0.4);
     border-radius: 5px;
     font-size: 95%;
     padding: 2px 4px;
     color: #ccc;
+}
+.user__input {
+    width: 150px;
+    background: rgba(83, 164, 191, 0.2);
+    border: rgba(0, 0, 0, 0.4);
 }
 .user__input:focus {
     outline-color: #999;
