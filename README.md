@@ -11,9 +11,9 @@ install deps:
 $ npm install
 ```
 
-build templates:
+build assets (js and css):
 ```bash
-$ npm run dev
+$ npm run build
 ```
 
 run server:

@@ -63,17 +63,3 @@
 .user__input_button {
     width: 28px;
 }
-
-
-.login-form {
-    padding: 0;
-    font-size: 13px;
-}
-
-.user__username {
-    font-weight: bold;
-}
-.login-form input {
-    height: 21px;
-    width: 100px;
-}

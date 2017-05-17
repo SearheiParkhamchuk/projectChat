@@ -44,10 +44,6 @@ textarea {
     border-radius: 10px;
     background-color: rgba(25, 147, 147, 0.2);
 }
-
-/*--------------------
-    Chat
---------------------*/
 .chat {
     position: absolute;
     top: 50%;
