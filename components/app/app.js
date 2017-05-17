@@ -23,13 +23,13 @@ class App {
   initEvents() {
     this.messageForm.on('messageSubmit', this.messageSubmit.bind(this));
     this.chat.on('messageDelete', this.deleteMessage.bind(this));
-    // document.addEventListener('visibilitychange', () => {
-    //   if (document.visibilityState === 'hidden') {
-    //     this.stopIntervalUpdate();
-    //   } else {
-    //     this.startIntervalUpdate();
-    //   }
-    // });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        this.stopIntervalUpdate();
+      } else {
+        this.startIntervalUpdate();
+      }
+    });
   }
 
   /**
@@ -119,8 +119,7 @@ class App {
   render() {
     this.user.render();
     this.messageForm.render();
-    this.updateMessages();
-//      this.startIntervalUpdate();
+    this.startIntervalUpdate();
   }
 }
 
