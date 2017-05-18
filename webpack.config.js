@@ -17,16 +17,17 @@ module.exports = {
           use: 'css-loader',
         })
       },
-      // {
-      //   test: /\.js$/,
-      //   use: [{
-      //     loader: 'babel-loader',
-      //     options: { presets: ['es2015'] },
-      //   }],
-      // },
+      {
+        test: /\.js$/,
+        use: [{
+          loader: 'babel-loader',
+          options: { presets: ['es2015'] },
+        }],
+      },
     ],
   },
   plugins: [
     new ExtractTextPlugin('./assets/styles.css'),
   ],
+  devtool: process.env.NODE_ENV !== 'production' ? 'inline-source-map' : null,
 };
