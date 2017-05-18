@@ -10,10 +10,31 @@ const UPDATE_MESSAGES_INTERVAL = 3000;
 
 class App {
 
-  constructor({ userEl, messageFormEl, chatEl }) {
-    this.user = new User({ el: userEl, Storage });
-    this.chat = new Chat({ el: chatEl, currentUser: this.user });
-    this.messageForm = new MessageForm({ el: messageFormEl });
+  /**
+   * Initialize application components, create children Html elements.
+   * @param {HtmlElement} el The root Html element.
+   * @param {string} title The chat title.
+   */
+  constructor({ el, title = 'The chat' }) {
+    const header = document.createElement('div');
+    const headerTitle = document.createElement('div');
+    const headerUser = document.createElement('div');
+    const content = document.createElement('div');
+    const footer = document.createElement('div');
+    header.className = 'chat__header';
+    headerTitle.className = 'chat__title';
+    headerTitle.innerHTML = title;
+    headerUser.className = 'chat__userinfo js-user';
+    header.appendChild(headerTitle);
+    header.appendChild(headerUser);
+    content.className = 'chat__content js-chat';
+    footer.className = 'chat__footer js-messageForm';
+    el.appendChild(header);
+    el.appendChild(content);
+    el.appendChild(footer);
+    this.user = new User({ el: headerUser, Storage });
+    this.chat = new Chat({ el: content, currentUser: this.user });
+    this.messageForm = new MessageForm({ el: footer });
     this.initEvents();
   }
 
@@ -123,4 +144,4 @@ class App {
   }
 }
 
-window.App = App;
+export default App;

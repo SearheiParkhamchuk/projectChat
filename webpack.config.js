@@ -1,7 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './components/app/app.js',
+  entry: './main.js',
   output: {
     filename: './assets/bundle.js'
   },
@@ -29,5 +29,4 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('./assets/styles.css'),
   ],
-  devtool: process.env.NODE_ENV !== 'production' ? 'inline-source-map' : null,
 };
