@@ -1,8 +1,0 @@
-li.chat__message(id=id class=isOwn ? 'chat__message_own' : '')
-    div.chat__message_avatar
-        img(src=avatarUrl alt=username)
-    div.chat__message_header
-        span.chat__message_author=username
-        input.chat__message_button(type='button' value='x')
-        span.chat__message_date=date.toLocaleString('ru', { hour: '2-digit', minute: '2-digit' })
-    div.chat__message_text=text

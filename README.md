@@ -16,7 +16,7 @@ build assets (js and css):
 $ npm run build
 ```
 
-run server:
+run DEV server:
 ```bash
-$ npm run serve
+$ npm run dev
 ```
