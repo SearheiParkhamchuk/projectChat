@@ -21,8 +21,8 @@ const App = ({ store }) => (
             <CurrentUserComponent />
           </div>
         </div>
-        <Route exact path="/" component={ChatPage} />
-        <Route path="/user" component={UserPage} />
+        <Route path="user" component={UserPage} />
+        <Route exact path="*" component={ChatPage} />
       </div>
     </Router>
   </Provider>

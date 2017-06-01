@@ -15,7 +15,7 @@ const initialState = {
   username: Storage.getItem('username'),
   avatarUrl: Storage.getItem('avatarUrl'),
   defaultUsername: 'Аноним',
-  defaultAvatarUrl: 'assets/img/noAvatar.jpg',
+  defaultAvatarUrl: './assets/img/noAvatar.jpg',
 };
 
 export default (state = initialState, action) => {
