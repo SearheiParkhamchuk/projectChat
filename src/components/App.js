@@ -8,12 +8,12 @@ import UserPage from '../containers/UserPage';
 import './app.css';
 
 const CurrentUserComponent = connect(
-  state => ({ user: state.user}),
+  state => ({ user: state.user }),
 )(CurrentUser);
 
 const App = ({ store }) => (
   <Provider store={store}>
-    <Router>
+    <Router basename="/projectChat">
       <div className="chat">
         <div className="chat__header">
           <div className="chat__title">{document.title}</div>
@@ -21,8 +21,8 @@ const App = ({ store }) => (
             <CurrentUserComponent />
           </div>
         </div>
-        <Route path="user" component={UserPage} />
-        <Route exact path="*" component={ChatPage} />
+        <Route exact path="/" component={ChatPage} />
+        <Route path="/user" component={UserPage} />
       </div>
     </Router>
   </Provider>
