@@ -3,7 +3,7 @@ import {
   MESSAGE_ADD_SUCCESS, MESSAGE_ADD_FAILURE, MESSAGE_DELETE_SUCCESS, MESSAGE_DELETE_FAILURE,
   ERROR_MESSAGE_RESET,
 } from '../constants/actionTypes';
-import { MESSAGES_UPDATE_INTERVAL } from '../constants/api';
+import { MESSAGES_UPDATE_INTERVAL } from '../constants/fetchApi';
 import fetchApi from '../api/fetchApi';
 
 export const messagesInvalidate = () => ({

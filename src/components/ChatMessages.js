@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-import { MESSAGES_UPDATE_INTERVAL } from '../constants/api';
+import Storage from '../api/StorageApi';
+import { MESSAGES_UPDATE_INTERVAL } from '../constants/fetchApi';
 import Message from './Message';
 
 export default class Messages extends Component {
@@ -21,11 +22,26 @@ export default class Messages extends Component {
     this.handleVisibilityBind = this.handleVisibility.bind(this);
   }
 
-  gotoBottom() {
-    const chat = findDOMNode(this);
-    setTimeout(() => {
-      chat.scrollTop = chat.scrollHeight;
-    }, 1);
+  getChatElement() {
+    if (!this.chatEl) {
+      this.chatEl = findDOMNode(this);
+    }
+    return this.chatEl;
+  }
+
+  saveScroll() {
+    const el = this.getChatElement();
+    if (el.scrollTop === el.scrollHeight - el.clientHeight) {
+      Storage.removeItem('scrollPosition');
+    } else {
+      Storage.setItem('scrollPosition', el.scrollTop);
+    }
+  }
+
+  restoreScroll() {
+    const el = this.getChatElement();
+    const pos = Storage.getItem('scrollPosition');
+    el.scrollTop = pos ? pos : el.scrollHeight - el.clientHeight;
   }
 
   /**
@@ -66,14 +82,19 @@ export default class Messages extends Component {
   componentDidMount() {
     document.addEventListener('visibilitychange', this.handleVisibilityBind);
     this.startIntervalUpdate();
-    this.gotoBottom();
+    this.restoreScroll();
   }
 
   componentWillReceiveProps () {
-    this.gotoBottom();
+    this.saveScroll();
+  }
+
+  componentDidUpdate() {
+      this.restoreScroll();
   }
 
   componentWillUnmount() {
+    this.saveScroll();
     document.removeEventListener('visibilitychange', this.handleVisibilityBind);
     this.stopIntervalUpdate();
   }

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CurrentUser from '../components/CurrentUser';
 import ChatPage from '../containers/ChatPage';
 import UserPage from '../containers/UserPage';
+import { APPLICATION_BASE_URL } from '../constants/appBaseUrl';
 import './app.css';
 
 const CurrentUserComponent = connect(
@@ -13,7 +14,7 @@ const CurrentUserComponent = connect(
 
 const App = ({ store }) => (
   <Provider store={store}>
-    <Router basename="/projectChat">
+    <Router basename={APPLICATION_BASE_URL}>
       <div className="chat">
         <div className="chat__header">
           <div className="chat__title">{document.title}</div>
